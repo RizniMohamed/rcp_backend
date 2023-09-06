@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from fastapi.responses import RedirectResponse
 from main import main
 
 app = FastAPI()
@@ -8,6 +9,7 @@ app = FastAPI()
 origins = [
     "http://localhost:3000",  # React
     "http://127.0.0.1:3000",  # React
+    "https://rescanpre.netlify.app", # netlify
 ]
 
 app.add_middleware(
@@ -39,7 +41,11 @@ class HotelBooking(BaseModel):
     no_of_previous_bookings_not_canceled: int
     
     
-    
+ 
+@app.get("/")
+async def redirect_to_docs():
+    return RedirectResponse(url="/docs")
+   
 @app.post("/V1/booking_status")
 async def book_hotel(booking: HotelBooking):
     booking_status = main(booking)
