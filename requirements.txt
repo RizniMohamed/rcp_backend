@@ -4,4 +4,4 @@ lightgbm
 numpy
 pandas
 scikit-learn
-uvicorn==0.23.2
+uvicorn==0.22.0
